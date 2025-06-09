@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestTask.Common;
 using TestTask.Interfaces;
 
 namespace TestTask.Models
@@ -77,11 +78,17 @@ namespace TestTask.Models
 
         public void ClearProducts()
         {
+            StatisticsTruckInfo info = new(this, this.TransportedProducts.Count, this.TransportedProducts.Average(t => t.Weight));
+            info.Register();
             this.TransportedProducts.Clear();
         }
         public void AddProduct(Product product)
         {
             this.TransportedProducts.Add(product);
+        }
+        public override string ToString()
+        {
+            return $"Грузовик [{this.Id}] ({this.Name})";
         }
     }
 }

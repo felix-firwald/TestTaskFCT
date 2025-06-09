@@ -7,25 +7,19 @@ using TestTask.Models;
 
 namespace TestTask.Common
 {
-    public class StatisticsManager
+    public static class StatisticsManager
     {
-        private List<Truck> trucks = new();
-        public void RegisterTruck(Truck truck)
+        private static List<StatisticsTruckInfo> truckInfos = new();
+        public static void AddTruckInfo(StatisticsTruckInfo truckInfo)
         {
-            trucks.Add(truck);
+            truckInfos.Add(truckInfo);
         }
-
-        public void ShowStatistics()
+        public static void ShowStatistics()
         {
-            if (trucks.Count == 0)
+            foreach (StatisticsTruckInfo truckInfo in truckInfos)
             {
-                Console.WriteLine("Грузовиков нет");
-                return;
+                Globals.SendIncomingMessage(truckInfo.ToString());
             }
-            Console.WriteLine("Статистика по грузовикам:");
-            Console.WriteLine($"Общее количество отправленных грузовиков: {trucks.Count}");
-            double averageWeight = trucks.Average(t => t.CurrentLoadWeight);
-            Console.WriteLine($"Средний вес: {averageWeight}");
         }
     }
 }

@@ -40,7 +40,7 @@ namespace TestTask.Common
         #region Methods
         public static void DoMainWork()
         {
-            StatisticsManager statisticsManager = new();
+            
             UnitsPerHourMultiplier = 50000;
             Factories = new List<Factory>
             {
@@ -56,17 +56,20 @@ namespace TestTask.Common
             Warehouse warehouse = new("Главный склад", Factories, Trucks);
             warehouse.OnProductArrival += (sender, e) =>
             {
-                OnIncomingMessage?.Invoke($"Поступление продукта с завода {e.FactoryName}: {e.Product}. Количество продукции: {e.ProductsCount}");
+                SendIncomingMessage($"Поступление продукта с завода {e.FactoryName}: {e.Product}. Количество продукции: {e.ProductsCount}");
             };
             warehouse.OnTruckDeparture += (sender, e) =>
             {
-                OnIncomingMessage?.Invoke($"Грузовик {e.Truck.Id} уехал, количество продуктов: {e.Truck.CurrentProductsCount}");
-                statisticsManager.RegisterTruck(e.Truck);
+                SendIncomingMessage($"Грузовик {e.Truck.Id} уехал, количество продуктов: {e.Truck.CurrentProductsCount}");
             };
             warehouse.StartProduction();
             Thread.Sleep(30000);
-            statisticsManager.ShowStatistics();
+            StatisticsManager.ShowStatistics();
 
+        }
+        public static void SendIncomingMessage(string message)
+        {
+            OnIncomingMessage?.Invoke(message);
         }
         #endregion
 

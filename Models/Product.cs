@@ -38,7 +38,7 @@ namespace TestTask.Models
 
         public override string ToString()
         {
-            return $"Продукт: {this.Name}, {this.Weight} кг., тип упаковки: {this.PackagingType}";
+            return $"Продукт [{this.Id}] - {this.Name}, {this.Weight} кг., тип упаковки: {this.PackagingType}";
         }
     }
 }
