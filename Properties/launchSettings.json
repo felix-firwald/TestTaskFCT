@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Test FCT": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
